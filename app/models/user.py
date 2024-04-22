@@ -1,5 +1,3 @@
-from pydantic import BaseModel
-
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.sql.sqltypes import Boolean
 from sqlalchemy.ext.declarative import declarative_base

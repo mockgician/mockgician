@@ -1,22 +1,25 @@
-# Instructions for working with FastAPI application
+# Mockgician
 
-## Creating and activating a virtual environment (venv)
+Mockgician is a web application designed to make mock services creation as easy and convenient as possible. 
+With a user-friendly web interface, Mockgician simplifies the creation, management and deployment of mock services.
+
+## Creating and activating a Poetry environment
 
 1. Open a command prompt (terminal) in your project window.
-2. If your project does not have a virtual environment (venv folder), then enter the command:
+2. To install Poetry, run the command:
     ```bash
-   python -m venv venv
+   pip install poetry
 
-3. To activate the virtual environment, run the command:
+3. To activate the Poetry environment, navigate to the project directory and run the command:
    ```bash
-   source venv/bin/activate
-4. To deactivate the virtual environment, run the command:
+   poetry shell
+4. To deactivate the Poetry environment, run the command:
     ```bash
-   deactivate
+   exit
    
 ## Launching a FastAPI application
 
-Recommended to run it inside a virtual environment (venv).
+Recommended to run it inside a Poetry environment.
 
 1. To run the application, run the command:
     ```bash
@@ -28,8 +31,8 @@ Recommended to run it inside a virtual environment (venv).
 
 1. To create or update a docker image, run the command (in the project root):
     ```bash
-   docker build -t mock-services .
+   docker build -t mockgician .
    
 2. To run the docker image, run the command (in the project root):
     ```bash
-   docker run -d -p 8000:8000 mock-services
+   docker run -d -p 8000:8000 mockgician
