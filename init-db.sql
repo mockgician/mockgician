@@ -19,4 +19,4 @@ CREATE TABLE users (
 );
 
 INSERT INTO users(username, hashed_password, disabled)
-VALUES('admin', '$2b$12$mgmwSyKmpR4c2r.y0haroeAQhfePypxz7r9VP9Iao5aPaR/4zeaD2', 0);
+VALUES('admin', '$2b$12$3jBVSCOB4vKgFDDAvX9LUuLzQpY2tK0KTmPBFZnSdMyVlH83LFqX2', 0);

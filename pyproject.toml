@@ -1,0 +1,23 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
+[tool.poetry]
+authors = ["Sergey Gurzhiev <seroyzha@gmail.com>"]
+description = "Web application for mocking services"
+name = "mockgician"
+readme = "README.md"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+bcrypt = "^4.1.2"
+fastapi = "^0.110.2"
+passlib = "^1.7.4"
+pydantic-settings = "^2.2.1"
+python = "^3.12"
+python-multipart = "^0.0.9"
+python-jose = "^3.3.0"
+requests = "^2.31.0"
+sqlalchemy = "^2.0.29"
+sqlalchemy-pagination = "^0.0.2"
+uvicorn = "^0.29.0"

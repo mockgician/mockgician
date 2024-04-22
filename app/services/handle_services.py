@@ -1,14 +1,11 @@
-import json
 from typing import Optional
 
 from app.db.engine import SessionDep
 from app.utils.custom_exceptions import NoDataFoundError, DatabaseError
 from app.models.service import Service, ServiceBase, ServicesList
-from app.utils.data_base_manager import DatabaseManager
 
 from sqlalchemy import func
 from sqlalchemy_pagination import paginate
-import sqlite3
 
 
 def get_services(
