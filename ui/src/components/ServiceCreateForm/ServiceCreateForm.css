@@ -1,0 +1,227 @@
+.service-create {
+    margin-top: 35px;
+    margin-bottom: 35px;
+    margin-left: calc((100vw - 1022px)/2);
+}
+
+.service-create__back-button {
+    width: 23px;
+    height: 23px;
+    position: absolute;
+
+    left: -30px;
+    border: 0;
+    padding: 0;
+    background-image: url(../../images/back.svg);
+}
+
+.service-create__back-button:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.service-create__form {
+    max-width: 437px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-create__title {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+
+    margin: 0;
+    margin-bottom: 28px;
+}
+
+.service-create__inputs-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.service-create__input {
+    border: 0;
+    padding: 0;
+    border-radius: 8px;
+    background: rgba(11, 31, 53, 0.10);
+
+    padding: 14px 12px;
+    font-size: 16px;
+    line-height: 20px;
+    outline: none;
+
+    margin-bottom: 14px;
+}
+
+.service-create__response-field-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.service-create__response-choice {
+    border: 0;
+    background: transparent;
+    outline: none;
+}
+
+.service-create__input-select {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: max-content 1fr;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 14px;
+
+    margin-bottom: 14px;
+}
+
+.service-create__input-label {
+    font-size: 14px;
+    line-height: 18px;
+    color: #0B1F35B2;
+    margin-bottom: 4px;
+}
+
+.service-create__input_s {
+    margin: 0;
+}
+
+.service-create__input_arrow {
+    appearance: none;
+    background: url('../../images/arrow.svg') no-repeat right;
+    background-position-x: calc(100% - 12px);
+    background-color: rgba(11, 31, 53, 0.10);
+}
+
+.service-create__inputs {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: calc((100% - 14px)/2) calc((100% - 14px)/2);
+    column-gap: 14px;
+    margin-bottom: 12px;
+}
+
+.service-create__input-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.service-create__add-button {
+    width: 23px;
+    height: 23px;
+    background-image: url('../../images/add.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    padding: 0;
+    border: 0;
+}
+
+.service-create__add-button:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.service-create__delete-button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+
+    margin-bottom: 12px;
+    align-self: flex-start;
+}
+
+.service-create__delete-button:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.service-create__buttons-container {
+    margin-top: 14px;
+}
+
+.service-create__submit-button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    width: 121px;
+    height: 45px;
+
+    border-radius: 12px;
+    background: #202022;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.service-create__submit-button:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.service-create__submit-button_inactive {
+    background: #818181;
+    color: rgb(228, 228, 228);
+}
+
+.service-create__submit-button.service-create__submit-button_inactive:hover {
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+.service-create__cancel-button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+
+    margin-left: 18px;
+}
+
+.service-create__cancel-button:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.service-create__highlighting-container {
+    position: relative;
+    min-height: 178px;
+}
+
+@media screen and (max-width: 1080px) {
+    .service-create {
+        margin-left: 45px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .service-create {
+        margin-left: 22px;
+    }
+
+    .service-create__back-button {
+        left: 0;
+        top: -27px;
+        width: 20px;
+        height: 20px;
+        background-size: contain;
+    }
+}
+
+@media screen and (max-width: 481px) {
+    .service-create {
+        margin-right: 22px;
+    }
+}

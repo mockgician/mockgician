@@ -1,0 +1,273 @@
+.services-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.services-list__info {
+    display: flex;
+    align-self: stretch;
+    justify-content: space-between;
+    max-width: 1022px;
+
+    margin-top: 22px;
+}
+
+.services-list__result {
+    margin: 0;
+    margin-top: 22px;
+    color: rgba(11, 31, 53, 0.95);
+    font-size: 14px;
+    line-height: 20px;
+
+    align-self: flex-end;
+}
+
+.services-list__result_num {
+    font-weight: 700;
+}
+
+.services-list__delete-button {
+    border: 0;
+    padding: 0;
+
+    color: #FFF;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 24px;
+
+    border-radius: 12px;
+    background: #EF3124;
+
+    width: 121px;
+    height: 45px;
+
+    margin-right: 25px;
+}
+
+.services-list__delete-button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.services-list__delete-button_disabled {
+    background: #DCDFE2;
+}
+
+.services-list__delete-button.services-list__delete-button_disabled:hover {
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+.services-list__create-button {
+    border: 0;
+    padding: 0;
+
+    color: #FFF;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 24px;
+
+    border-radius: 12px;
+    background: #202022;
+
+    width: 121px;
+    height: 45px;
+}
+
+.services-list__create-button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.services-list__container {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    width: 1022px;
+    margin: 18px 0 28px;
+    padding: 40px 48px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border-radius: 8px;
+    background: #FFF;   
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.16);
+}
+
+.services-list__headers {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 161px 188px 289px 289px;
+    align-items: center;
+
+    border-bottom: 1px solid #DCDCDD;
+}
+
+.services-list__headers-text {
+    margin: 0;
+
+    color: #0E0E0E;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 1.25px;
+    text-transform: uppercase;
+
+    padding-bottom: 9px;
+    box-sizing: border-box; 
+
+    display: flex;
+    align-items: center;
+}
+
+.services-list__pagination {
+    display: flex;
+    justify-content: space-between;
+    width: 1022px;
+    margin-bottom: 30px;
+}
+
+.services-list__pagination-container {
+    display: flex;
+}
+
+.services-list__more-button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+
+    color: #0E0E0E;
+
+    font-size: 14px;
+    line-height: 20px;
+
+    outline: none;
+}
+
+.services-list__arrow {
+    margin-left: 4px;
+}
+
+.services-list__navigation-button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    width: 16px;
+    height: 16px;
+}
+
+.pagination {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    column-gap: 8px;
+    margin: 0 13px;
+}
+ 
+.pagination .disabled {
+    display: none;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: rgba(60, 60, 67, 0.66);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+
+    padding: 7px 13px 7px;
+    border-radius: 8px;
+    background: transparent;
+}
+
+.pagination .active a {
+    color: rgba(255, 255, 255, 1);
+    background: #202022;
+}
+
+@media screen and (max-width: 1080px) {
+    .services-list__info {
+        max-width: calc(100vw - 90px);
+    }
+
+    .services-list__container {
+        max-width: calc(100vw - 90px);
+    }
+
+    .services-list__headers {
+        grid-template-columns: 1.5fr 1.5fr 2fr 2fr;
+        width: calc(100vw - 180px);
+    }
+
+    .services-list__pagination {
+        max-width: calc(100vw - 90px);
+    }
+}
+
+@media screen  and (max-width: 850px) {
+    .services-list__headers {
+        width: calc(100vw - 140px);
+    }
+}
+
+@media screen  and (max-width: 600px) {
+    .services-list {
+        position: relative;
+    }
+    
+    .services-list__delete-button {
+        margin-right: 15px;
+    }
+    
+    .services-list__info {
+        flex-flow: column-reverse;
+        display: flex;
+        align-self: flex-start;
+        margin-top: 12px;
+    }
+
+    .services-list__result {
+        align-self: flex-start;
+        margin-top: 12px;
+    }
+
+    .services-list__more-button {
+        position: absolute;
+        left: calc(100vw - 90px);
+        top: 70px;
+    }
+
+    .services-list__container {
+        max-width: calc(100vw - 44px);
+        margin: 12px 0 22px;
+        padding: 20px;
+        height: fit-content;
+    }
+
+    .services-list__headers-mobile {
+        width: calc(100vw - 88px);
+        border-bottom: 1px solid #DCDCDD;
+    }
+
+    .services-list__headers-text {
+        font-size: 14px;
+        margin-bottom: 15px;
+        padding: 0;
+    }
+
+    .services-list__pagination-container {
+        margin-bottom: 22px;
+    }
+
+    .services-list__pagination {
+        max-width: calc(100vw - 44px);
+        justify-content: center;
+    }
+}

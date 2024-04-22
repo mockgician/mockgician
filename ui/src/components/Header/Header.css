@@ -1,0 +1,21 @@
+.header {
+    background-color: white;
+    padding: 16px 0;
+}
+
+.header__logo {
+    margin-left: calc((100vw - 1022px)/2);
+}
+
+@media screen and (max-width: 1080px){
+    .header__logo {
+        margin-left: 45px;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .header__logo {
+        margin-left: 22px;
+    }
+}
+

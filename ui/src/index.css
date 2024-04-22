@@ -1,0 +1,15 @@
+@import url(./vendor/normalize.css);
+@import url(./fonts/fonts.css);
+
+@import url(./components/App/App.css);
+@import url(./components/Header/Header.css);
+@import url(./components/SignIn/SignIn.css);
+
+@import url(./components/SearchForm/SearchForm.css);
+@import url(./components/ServicesList/ServicesList.css);
+@import url(./components/ServiceCard/ServiceCard.css);
+
+@import url(./components/Popup/Popup.css);
+@import url(./components/ServiceCreateForm/ServiceCreateForm.css);
+@import url(./components/Editor/Editor.css);
+@import url(./components/Footer/Footer.css);

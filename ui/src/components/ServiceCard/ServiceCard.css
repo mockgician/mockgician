@@ -1,0 +1,167 @@
+.services-list__card {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 161px 188px 289px 289px;
+    align-items: center;
+
+    border-bottom: 1px solid #DCDCDD;
+}
+
+.services-list__card:last-of-type {
+    border-bottom: none;
+}
+
+.services-list__checkbox-container {
+    display: flex;
+}
+
+.services-list__card-text {
+    margin: 0;
+    padding: 20px 0;
+    box-sizing: border-box;
+
+    color: #0E0E0E;
+    font-size: 14px;
+    line-height: 20px; 
+}
+
+.services-list__card-type-rest {
+    margin: 0;
+    margin: 20px 0;
+    box-sizing: border-box;
+    height: 20px;
+
+    color: #007AFF;
+    text-align: center;
+    font-size: 11px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+
+    width: 81px;
+    border-radius: 4px;
+    background: rgba(0, 122, 255, 0.10);
+}
+
+.services-list__card-type-soap{
+    margin: 0;
+    margin: 20px 0;
+    box-sizing: border-box;
+    height: 20px;
+
+    color: #673AB7;
+    text-align: center;
+    font-size: 11px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+
+    width: 81px;
+    border-radius: 4px;
+    background: rgba(103, 58, 183, 0.10);
+}
+
+/*Checkbox*/
+.services-list__checkbox {
+    position: absolute;
+    width: 1px; 
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(0 0 0 0);
+    align-self: center;
+}
+
+.services-list__checkbox-visible {
+    width: 20px;
+    height: 20px;
+
+    border-radius: 4px;
+    border: 1.5px solid #86868A;
+    background: transparent;
+
+    margin-right: 20px;
+    box-sizing: border-box;
+    align-self: center;
+}
+
+.services-list__checkbox:checked + .services-list__checkbox-visible {
+    border: none;
+    background-image: url('../../images/checkbox.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 1080px) {
+    .services-list__card {
+        grid-template-columns: 1.5fr 1.5fr 2fr 2fr;
+        width: calc(100vw - 180px);
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .services-list__card {
+        width: calc(100vw - 140px);
+    }
+
+    .services-list__checkbox-visible {
+        margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 715px) {
+    .services-list__card-type-rest {
+        width: 61px;
+    }
+    
+    .services-list__card-type-soap {
+        width: 61px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .services-list__card {
+        display: flex;
+        width: calc(100vw - 88px);
+    }
+
+    .services-list__grid-container {
+        display: grid;
+        grid-template-columns: 1fr 113px;
+        margin: 15px 0;
+        width: 100%;
+    }
+
+    .services-list__checkbox-container {
+        align-self: flex-start;
+        margin-top: 15px;
+    }
+
+    .services-list__checkbox-visible {
+        width: 28px;
+        height: 28px;
+        margin-right: 22px;
+        
+    }
+
+    .services-list__card-type-rest {
+        width: 113.6px;
+        height: 28px;
+        margin: 0;
+        font-size: 14px;
+        padding: 0;
+        padding-top: 5px;
+    }
+    
+    .services-list__card-type-soap {
+        width: 113.6px;
+        height: 28px;
+        margin: 0;
+        font-size: 14px;
+        padding: 0;
+        padding-top: 5px;
+    }
+
+    .services-list__card-text {
+        padding: 0;
+    }
+}

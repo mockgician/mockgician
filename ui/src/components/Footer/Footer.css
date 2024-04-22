@@ -1,0 +1,29 @@
+.footer {
+    background-color: white;
+    padding: 16px 0;
+    justify-self: baseline;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+}
+
+.footer__link {
+    height: 32px;
+    display: block;
+}
+
+.footer__logo {
+    margin-left: calc((100vw - 1022px)/2);
+}
+
+@media screen and (max-width: 1080px){
+    .footer__logo {
+        margin-left: 45px;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .footer__logo {
+        margin-left: 22px;
+    }
+}
