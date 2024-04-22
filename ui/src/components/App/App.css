@@ -1,0 +1,18 @@
+.page {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Roboto', Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+  background-color: #F3F4F5;
+  color: #000000;
+  font-style: normal;
+  font-weight: 400;
+
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 57px auto 57px;
+}
