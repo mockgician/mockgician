@@ -9,6 +9,7 @@ import Signin from '../SignIn/SignIn';
 import Main from '../Main/Main';
 import Popup from '../Popup/Popup';
 import ServiceCreateForm from '../ServiceCreateForm/ServiceCreateForm';
+import ServiceUpdateForm from '../ServiceUpdateForm/ServiceUpdateForm';
 import Footer from '../Footer/Footer';
 
 
@@ -27,8 +28,9 @@ function App() {
   const [cardsPerPage, setCardsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState('');
+  const [selectedCard, setSelectedCard] = useState(null);
 
-  //Login
+  // Login
   function signInUser({ username, password }) {
     authApi.signin(username, password)
       .then((data) => {
@@ -51,7 +53,7 @@ function App() {
       })
   }
 
-  //Stay loggen in after refreshing the page
+  // Stay loggen in after refreshing the page
   useEffect(() => {
     const access_token = localStorage.getItem('access_token');
     if (access_token) {
@@ -59,7 +61,7 @@ function App() {
     }
   }, []);
   
-  //Get Cards
+  // Get Cards
   useEffect(() => {
     const access_token = localStorage.getItem('access_token');
     if(isLoggedIn && access_token) {
@@ -112,7 +114,7 @@ function App() {
     localStorage.setItem('currentPage', pageNumber);
   };
 
-  //Stay on the same page after refreshing
+  // Stay on the same page after refreshing
   useEffect(() => {
     const storedPage = localStorage.getItem('currentPage');
     if (storedPage !== null) {
@@ -120,12 +122,12 @@ function App() {
     }
   }, []);
 
-  //Handle change of shown nubmer of cards
+  // Handle change of shown nubmer of cards
   const handleCardsPerPageChange = (chosenNumber) => {
     setCardsPerPage(chosenNumber);
   };
 
-  //Popup
+  // Popup
   const handleCreateClick = () => {
     setIsPopupOpen(true);
   }
@@ -144,7 +146,7 @@ function App() {
     setSelectedType(type);
   }
 
-  //Search
+  // Search
   const handleSearch = (query) => {
       setSearchQuery(query);
 
@@ -178,6 +180,12 @@ function App() {
       });
   };
 
+  //Update card
+  const handleCardClick = (card) => {
+    console.log('Card clicked:', card);
+    setSelectedCard(card);
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -191,6 +199,7 @@ function App() {
               cards={cards}
               loggedIn={isLoggedIn}
               onCardDelete={handleCardDelete}
+              onCardClick={handleCardClick}
               onPageChange={handlePageChange}
               totalAmountOfCards={totalAmountOfCards}
               currentPage={currentPage}
@@ -203,6 +212,7 @@ function App() {
             />}
           />
           <Route path="/create-service/" element={ <ServiceCreateForm createNewCard={createNewCard} type={selectedType}/>}/>
+          <Route path="/update-service/" element={ <ServiceUpdateForm service={selectedCard}/>}/>
         </Routes>
         <Footer/>
         <Popup isOpen={isPopupOpen} onClose={closePopup} redirectToCreateService={redirectToCreateService} onTypeSelect={handleTypeSelect}/>

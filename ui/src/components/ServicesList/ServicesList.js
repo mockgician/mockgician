@@ -5,7 +5,7 @@ import arrow_prev from '../../images/arrow-prev.svg';
 import arrow_next from '../../images/arrow-next.svg';
 import dots from '../../images/dots.svg';
 
-function ServicesList({ cards, onCardDelete, onPageChange, totalAmountOfCards, currentPage, totalPages, onCreateClick, cardsPerPage, onCardsPerPageCange }) {
+function ServicesList({ cards, onCardDelete, onCardClick, onPageChange, totalAmountOfCards, currentPage, totalPages, onCreateClick, cardsPerPage, onCardsPerPageCange }) {
   const [checkedAll, setCheckedAll] = useState(false);
   const [cardCheckedStates, setCardCheckedStates] = useState(cards.map(() => false));
   const [isMobile, setIsMobile] = useState(0);
@@ -41,7 +41,7 @@ function ServicesList({ cards, onCardDelete, onPageChange, totalAmountOfCards, c
     onCardDelete(selectedCardIds);
   }
 
-  //Update the state of checkboxex after deleting cards
+  // Update the state of checkboxex after deleting cards
   useEffect(() => {
     setCardCheckedStates(cards.map(() => false));
     setCheckedAll(false);
@@ -76,12 +76,19 @@ function ServicesList({ cards, onCardDelete, onPageChange, totalAmountOfCards, c
     handlePageChange(nextPage);
   };
 
-  //Handle change of shown nubmer of cards
+  // Handle change of shown nubmer of cards
   const handleCardsPerPageChange = (e) => {
     const selectedAmountOfCards = parseInt(e.target.value, 10);
     onCardsPerPageCange(selectedAmountOfCards);
     setSelectedAmountOfCards(selectedAmountOfCards);
     onPageChange(1);
+  };
+
+  // Pass info for update service
+  const handleCardClick = (card) => {
+    if (onCardClick) {
+      onCardClick(card);
+    }
   };
 
   return (
@@ -157,6 +164,7 @@ function ServicesList({ cards, onCardDelete, onPageChange, totalAmountOfCards, c
             size={isMobile}
             key={card.id}
             card={card}
+            onCardClick={() => handleCardClick(card)}
             checked={cardCheckedStates[index] || false}
             onCheckboxChange={(isChecked) => handleCheckboxChange(index, isChecked)}
           />
