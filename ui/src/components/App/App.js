@@ -38,6 +38,7 @@ function App() {
         setCurrentUser({ username: username, password: password });
         setIsLoggedIn(true);
         localStorage.removeItem('currentPage');
+        localStorage.removeItem('cardsPerPage');
         setCurrentPage(1);
         mainApi.getCards(1, cardsPerPage)
         .then((data) => {

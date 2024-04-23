@@ -18,9 +18,9 @@ function ServiceUpdateForm({service}) {
     const [selectedStatus, setSelectedStatus] = useState(service.response_code);
     const [optionsTypes, setOptionsTypes] = useState([]);
     const [selectedType, setSelectedType] = useState(service.type);
-    const { enteredValues, handleChangeInput } = useForm();
+    const { enteredValues } = useForm();
     const [selectedLang, setSelectedLang] = useState(service.response_format.toLowerCase());
-    const [dynamicInputsData, setDynamicInputsData] = useState(service.headers);
+    const [dynamicInputsData, setDynamicInputsData] = useState(JSON.parse(service.headers));
     const [responseBody, setResponseBody] = useState(service.response_body); 
 
     useEffect(() => {
@@ -54,7 +54,6 @@ function ServiceUpdateForm({service}) {
     }, []); 
 
     const handleDynamicInputsChange = (dynamicInputsData) => {
-        
         setDynamicInputsData(dynamicInputsData);
     };
 
@@ -148,7 +147,7 @@ function ServiceUpdateForm({service}) {
                     </div>
 
                     <label className="service-update__input-label">Headers</label>
-                    <DynamicInputFields onDynamicInputsChange={handleDynamicInputsChange} />
+                    <DynamicInputFields onDynamicInputsChange={handleDynamicInputsChange} initialInputs={dynamicInputsData}/>
                 </div>
                 <div className="service-update__response-field-container">
                     <label className="service-update__input-label">Response body</label>
