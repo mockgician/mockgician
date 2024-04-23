@@ -9,6 +9,9 @@ import Editor from '../Editor/Editor';
 function ServiceUpdateForm({service}) {
     const navigate = useNavigate();
 
+    const [name, setName] = useState(service.name);
+    const [description, setDescription] = useState(service.description);
+    const [endpoint, setEndpoint] = useState(service.address);
     const [optionsMethods, setOptionsMethods] = useState([]);
     const [selectedMethod, setSelectedMethod] = useState(service.method);
     const [optionsStatuses, setOptionsStatuses] = useState([]);
@@ -92,39 +95,36 @@ function ServiceUpdateForm({service}) {
                     <label className="service-update__input-label">Name</label>
                     <input 
                         className="service-update__input" 
-                        placeholder="Service name" 
-                        value={service.name} 
+                        value={name} 
                         type="text" 
                         name="name" 
                         id="name-input" 
                         required
-                        onChange={handleChangeInput}
+                        onChange={(e) => setName(e.target.value)}
                     />
                     <label className="service-update__input-label">Description</label>
                     <input 
                         className="service-update__input" 
-                        placeholder="Description" 
-                        value={service.description} 
+                        value={description} 
                         type="text" 
                         name="description" 
                         id="description-input" 
                         required
                         minLength={5}
                         maxLength={50}
-                        onChange={handleChangeInput}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                     <label className="service-update__input-label">Endpoint</label>
                     <input 
                         className="service-create__input" 
-                        placeholder="Endpoint" 
-                        value={service.address} 
+                        value={endpoint} 
                         type="text" 
                         name="endpoint" 
                         id="endpoint-input" 
                         required
                         minLength={3}
                         maxLength={30}
-                        onChange={handleChangeInput}
+                        onChange={(e) => setEndpoint(e.target.value)}
                     />
                     
                     <div className="service-update__input-select">

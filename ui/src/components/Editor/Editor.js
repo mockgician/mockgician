@@ -1,5 +1,4 @@
 import React, { useRef, useEffect} from 'react';
-import useForm from '../../hooks/useForm';
 import { basicSetup } from 'codemirror';
 import { EditorState } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
@@ -11,8 +10,6 @@ import { html } from '@codemirror/lang-html';
 
 function Editor({ language, onContentChange, initialContent}) {
     const editor = useRef();
-    const { enteredValues } = useForm();
-
   
     useEffect(() => {
       const extensions = [
