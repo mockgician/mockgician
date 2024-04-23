@@ -191,6 +191,19 @@ function App() {
     setSelectedCard(card);
   };
 
+  const updateCard = (updatedCardData) => {
+    mainApi
+      .updateCard(updatedCardData)
+      .then((updatedCard) => {
+        setCards((prevCards) => [...prevCards, updatedCard]);
+        navigate('/services/', { replace: true });
+      })
+      .catch((error) => {
+        console.error('Error updating card:', error);
+      });
+  };
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -216,7 +229,7 @@ function App() {
             />}
           />
           <Route path="/create-service/" element={ <ServiceCreateForm createNewCard={createNewCard} type={selectedType}/>}/>
-          <Route path="/update-service/" element={ <ServiceUpdateForm service={selectedCard}/>}/>
+          <Route path="/update-service/" element={ <ServiceUpdateForm updateCard={updateCard} service={selectedCard}/>}/>
         </Routes>
         <Footer/>
         <Popup isOpen={isPopupOpen} onClose={closePopup} redirectToCreateService={redirectToCreateService} onTypeSelect={handleTypeSelect}/>

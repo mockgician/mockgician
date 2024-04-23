@@ -6,7 +6,7 @@ import DynamicInputFields from '../DynamicInputFields/DynamicInputFields';
 import Editor from '../Editor/Editor';
 
 
-function ServiceUpdateForm({service}) {
+function ServiceUpdateForm({updateCard, service}) {
     const navigate = useNavigate();
 
     const [name, setName] = useState(service.name);
@@ -61,25 +61,26 @@ function ServiceUpdateForm({service}) {
         setResponseBody(content); 
     };
 
-    // const handleUpdate = (e) => {
-    //     e.preventDefault();
-    //     const newCardData = {
-    //         type: type,
-    //         name: enteredValues.name,
-    //         description: enteredValues.description,
-    //         address: enteredValues.endpoint,
-    //         method: selectedMethod,
-    //         headers: JSON.stringify(dynamicInputsData),
-    //         response_code: selectedStatus,
-    //         response_format: selectedLang.toUpperCase(),
-    //         response_body: responseBody,
-    //     };
-    //     createNewCard(newCardData);
-    // };
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        const updatedCardData = {
+            id: service.id,
+            type: selectedType,
+            name: name,
+            description: description,
+            address: endpoint,
+            method: selectedMethod,
+            headers: JSON.stringify(dynamicInputsData),
+            response_code: selectedStatus,
+            response_format: selectedLang.toUpperCase(),
+            response_body: responseBody,
+        };
+        updateCard(updatedCardData);
+    };
 
     return (
         <section className="service-update">
-            <form className="service-update__form" /*onSubmit={handleUpdate}*/>
+            <form className="service-update__form" onSubmit={handleUpdate}>
             <button className="service-update__back-button" type="button" onClick={() => navigate('/services/', { replace: true })}></button>
                 <h2 className="service-update__title">Update {service.name} mock-service</h2>
                 <div className="service-update__inputs-container">
@@ -159,7 +160,7 @@ function ServiceUpdateForm({service}) {
                 </div>
                 <Editor language={selectedLang.toLowerCase()}  onContentChange={handleEditorContentChange} initialContent={responseBody}/>
                 <div className="service-update__buttons-container">
-                    <button className={
+                    <button /*className={
                         enteredValues.name 
                         && enteredValues.description 
                         && enteredValues.endpoint 
@@ -167,15 +168,17 @@ function ServiceUpdateForm({service}) {
                         && responseBody.trim().length > 0
                             ? "service-update__submit-button"
                             : "service-update__submit-button service-update__submit-button_inactive"
-                    }
+                    }*/
+                    className="service-update__submit-button"
                     type="submit" 
-                    disabled={
-                        !enteredValues.name 
-                        || !enteredValues.description 
-                        || !enteredValues.endpoint 
-                        || dynamicInputsData.length === 0 
-                        || responseBody.trim().length === 0
-                    }>
+                    // disabled={
+                    //     !enteredValues.name 
+                    //     || !enteredValues.description 
+                    //     || !enteredValues.endpoint 
+                    //     || dynamicInputsData.length === 0 
+                    //     || responseBody.trim().length === 0
+                    // }
+                    >
                         Update
                     </button>
                     <button className="service-update__cancel-button" type="button" onClick={() => navigate('/services/', { replace: true })}>Cancel</button>

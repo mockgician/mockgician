@@ -54,6 +54,7 @@ class MainApi {
                 authorization: `Bearer ${access_token}`,
             },
             body: JSON.stringify({
+                id: data.id,
                 type: data.type,
                 name: data.name,
                 description: data.description,
