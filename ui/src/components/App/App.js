@@ -40,6 +40,7 @@ function App() {
         localStorage.removeItem('currentPage');
         localStorage.removeItem('cardsPerPage');
         setCurrentPage(1);
+        setCardsPerPage(10);
         mainApi.getCards(1, cardsPerPage)
         .then((data) => {
           setCards(data.services);
