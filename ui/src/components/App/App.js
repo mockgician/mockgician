@@ -125,7 +125,16 @@ function App() {
   // Handle change of shown nubmer of cards
   const handleCardsPerPageChange = (chosenNumber) => {
     setCardsPerPage(chosenNumber);
+    localStorage.setItem('cardsPerPage', chosenNumber); 
   };
+
+  // Stay with the same amount cards per page after refreshing
+  useEffect(() => {
+    const storedCardsPerPage = localStorage.getItem('cardsPerPage');
+    if (storedCardsPerPage) {
+      setCardsPerPage(parseInt(storedCardsPerPage, 10));
+    }
+  }, []);
 
   // Popup
   const handleCreateClick = () => {
@@ -160,11 +169,6 @@ function App() {
         .catch((err) => {
           console.log(err);
         });
-  };
-  
-  const handleCurrentPageReset = () => {
-    setCurrentPage(1);
-    localStorage.setItem('currentPage', 1);
   };
 
   //Create card
@@ -208,7 +212,6 @@ function App() {
               cardsPerPage={cardsPerPage}
               onCardsPerPageCange={handleCardsPerPageChange}
               onSearch={handleSearch} 
-              onCurrentPageReset={handleCurrentPageReset}
             />}
           />
           <Route path="/create-service/" element={ <ServiceCreateForm createNewCard={createNewCard} type={selectedType}/>}/>

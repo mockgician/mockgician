@@ -68,12 +68,21 @@ function ServicesList({ cards, onCardDelete, onCardClick, onPageChange, totalAmo
 
   const handleNextButtonClick = () => {
     const nextPage = currentPage + 1;
-    handlePageChange(nextPage);
+
+    if(nextPage === totalPages+1) {
+      handlePageChange(currentPage);
+    } else {
+      handlePageChange(nextPage);
+    }
   };
 
   const handlePrevButtonClick = () => {
     const nextPage = currentPage - 1;
-    handlePageChange(nextPage);
+    if(nextPage === 0) {
+      handlePageChange(currentPage);
+    } else {
+      handlePageChange(nextPage);
+    }
   };
 
   // Handle change of shown nubmer of cards
@@ -183,7 +192,6 @@ function ServicesList({ cards, onCardDelete, onCardClick, onPageChange, totalAmo
             className="services-list__navigation-button" 
             type="button" 
             onClick={handlePrevButtonClick}
-            disabled={currentPage === 1}
           >
             <img className="services-list__prev-arrow" alt="Prev arrow" src={arrow_prev} />
           </button>
@@ -206,7 +214,6 @@ function ServicesList({ cards, onCardDelete, onCardClick, onPageChange, totalAmo
             className="services-list__navigation-button" 
             type="button" 
             onClick={handleNextButtonClick}
-            disabled={currentPage = totalPages}
           >
             <img className="services-list__next-arrow" alt="Next arrow" src={arrow_next} />
           </button>
@@ -218,7 +225,6 @@ function ServicesList({ cards, onCardDelete, onCardClick, onPageChange, totalAmo
             className="services-list__navigation-button" 
             type="button" 
             onClick={handlePrevButtonClick}
-            disabled={currentPage === 1}
           >
             <img className="services-list__prev-arrow" alt="Prev arrow" src={arrow_prev} />
           </button>
@@ -241,7 +247,6 @@ function ServicesList({ cards, onCardDelete, onCardClick, onPageChange, totalAmo
             className="services-list__navigation-button" 
             type="button" 
             onClick={handleNextButtonClick}
-            disabled={currentPage = totalPages}
           >
             <img className="services-list__next-arrow" alt="Next arrow" src={arrow_next} />
           </button>
