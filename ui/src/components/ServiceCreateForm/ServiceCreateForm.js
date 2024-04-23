@@ -139,7 +139,7 @@ function ServiceCreateForm({createNewCard, type}) {
                         <option value="text">TEXT</option>
                     </select>
                 </div>
-                <Editor language={selectedLang.toLowerCase()}  onContentChange={handleEditorContentChange}/>
+                <Editor language={selectedLang.toLowerCase()}  onContentChange={handleEditorContentChange} initialContent={responseBody}/>
                 <div className="service-create__buttons-container">
                     <button className={
                         enteredValues.name 

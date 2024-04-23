@@ -158,7 +158,7 @@ function ServiceUpdateForm({service}) {
                         <option value="text">TEXT</option>
                     </select>
                 </div>
-                <Editor language={selectedLang.toLowerCase()}  onContentChange={handleEditorContentChange}/>
+                <Editor language={selectedLang.toLowerCase()}  onContentChange={handleEditorContentChange} initialContent={responseBody}/>
                 <div className="service-update__buttons-container">
                     <button className={
                         enteredValues.name 
