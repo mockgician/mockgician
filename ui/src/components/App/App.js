@@ -41,12 +41,11 @@ function App() {
         localStorage.removeItem('cardsPerPage');
         setCurrentPage(1);
         setCardsPerPage(10);
-        mainApi.getCards(1, cardsPerPage)
+        mainApi.getCards(1, 10)
         .then((data) => {
           setCards(data.services);
           setTotalAmountOfCards(data.total);
           setTotalPages(data.pages);
-          setCardsPerPage(cardsPerPage);
         });
         navigate('/services/', { replace: true });
       })
