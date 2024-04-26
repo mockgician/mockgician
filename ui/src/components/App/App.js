@@ -28,7 +28,6 @@ function App() {
   const [cardsPerPage, setCardsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState('');
-  const [selectedCard, setSelectedCard] = useState(null);
 
   // Login
   function signInUser({ username, password }) {
@@ -187,15 +186,20 @@ function App() {
 
   //Update card
   const handleCardClick = (card) => {
-    console.log('Card clicked:', card);
-    setSelectedCard(card);
+    localStorage.setItem('serviceData', JSON.stringify(card));
   };
 
   const updateCard = (updatedCardData) => {
     mainApi
       .updateCard(updatedCardData)
       .then((updatedCard) => {
-        setCards((prevCards) => [...prevCards, updatedCard]);
+        const updatedCardIndex = cards.findIndex((card) => card.id === updatedCard.id);
+        setCards((prevCards) => {
+          const newCards = [...prevCards];
+          newCards[updatedCardIndex] = updatedCard;
+          return newCards;
+        });
+        localStorage.removeItem('serviceData');
         navigate('/services/', { replace: true });
       })
       .catch((error) => {
@@ -229,7 +233,7 @@ function App() {
             />}
           />
           <Route path="/create-service/" element={ <ServiceCreateForm createNewCard={createNewCard} type={selectedType}/>}/>
-          <Route path="/update-service/" element={ <ServiceUpdateForm updateCard={updateCard} service={selectedCard}/>}/>
+          <Route path="/update-service/" element={ <ServiceUpdateForm updateCard={updateCard} />}/>
         </Routes>
         <Footer/>
         <Popup isOpen={isPopupOpen} onClose={closePopup} redirectToCreateService={redirectToCreateService} onTypeSelect={handleTypeSelect}/>

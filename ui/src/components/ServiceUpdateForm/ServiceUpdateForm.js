@@ -6,22 +6,40 @@ import DynamicInputFields from '../DynamicInputFields/DynamicInputFields';
 import Editor from '../Editor/Editor';
 
 
-function ServiceUpdateForm({updateCard, service}) {
+function ServiceUpdateForm({updateCard}) {
     const navigate = useNavigate();
-
-    const [name, setName] = useState(service.name);
-    const [description, setDescription] = useState(service.description);
-    const [endpoint, setEndpoint] = useState(service.address);
+    
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [endpoint, setEndpoint] = useState('');
     const [optionsMethods, setOptionsMethods] = useState([]);
-    const [selectedMethod, setSelectedMethod] = useState(service.method);
+    const [selectedMethod, setSelectedMethod] = useState('');
     const [optionsStatuses, setOptionsStatuses] = useState([]);
-    const [selectedStatus, setSelectedStatus] = useState(service.response_code);
+    const [selectedStatus, setSelectedStatus] = useState('');
     const [optionsTypes, setOptionsTypes] = useState([]);
-    const [selectedType, setSelectedType] = useState(service.type);
-    const { enteredValues } = useForm();
-    const [selectedLang, setSelectedLang] = useState(service.response_format.toLowerCase());
-    const [dynamicInputsData, setDynamicInputsData] = useState(JSON.parse(service.headers));
-    const [responseBody, setResponseBody] = useState(service.response_body); 
+    const [selectedType, setSelectedType] = useState('');
+    // const { enteredValues } = useForm();
+    const [selectedLang, setSelectedLang] = useState('');
+    const [dynamicInputsData, setDynamicInputsData] = useState([]);
+    const [responseBody, setResponseBody] = useState('');
+
+    // Retrieve service from local storage
+    useEffect(() => {
+        const storedService = localStorage.getItem('serviceData');
+        if (storedService) {
+            const parsedService = JSON.parse(storedService);
+            setName(parsedService.name);
+            setDescription(parsedService.description);
+            setEndpoint(parsedService.address);
+            setSelectedMethod(parsedService.method);
+            setSelectedStatus(parsedService.response_code);
+            setSelectedType(parsedService.type);
+            setSelectedLang(parsedService.response_format.toLowerCase());
+            setDynamicInputsData(JSON.parse(parsedService.headers));
+            setResponseBody(parsedService.response_body);
+        }
+    }, []);
+
 
     useEffect(() => {
         mainApi.getHttpMethods()
@@ -61,10 +79,15 @@ function ServiceUpdateForm({updateCard, service}) {
         setResponseBody(content); 
     };
 
+    const handleReturn = () => {
+        navigate('/services/', { replace: true });
+        localStorage.removeItem('serviceData');
+    }
+
     const handleUpdate = (e) => {
         e.preventDefault();
         const updatedCardData = {
-            id: service.id,
+            id: JSON.parse(localStorage.getItem('serviceData')).id,
             type: selectedType,
             name: name,
             description: description,
@@ -75,14 +98,15 @@ function ServiceUpdateForm({updateCard, service}) {
             response_format: selectedLang.toUpperCase(),
             response_body: responseBody,
         };
+        localStorage.removeItem('serviceData')
         updateCard(updatedCardData);
     };
 
     return (
         <section className="service-update">
             <form className="service-update__form" onSubmit={handleUpdate}>
-            <button className="service-update__back-button" type="button" onClick={() => navigate('/services/', { replace: true })}></button>
-                <h2 className="service-update__title">Update {service.name} mock-service</h2>
+            <button className="service-update__back-button" type="button" onClick={handleReturn}></button>
+                <h2 className="service-update__title">Update {name} mock-service</h2>
                 <div className="service-update__inputs-container">
                     <label className="service-update__input-label">Type</label>
                     <select className="service-update__input service-update__input_arrow" name="type" onChange={(e) => setSelectedType(e.target.value)} value={selectedType}>
@@ -181,7 +205,7 @@ function ServiceUpdateForm({updateCard, service}) {
                     >
                         Update
                     </button>
-                    <button className="service-update__cancel-button" type="button" onClick={() => navigate('/services/', { replace: true })}>Cancel</button>
+                    <button className="service-update__cancel-button" type="button" onClick={handleReturn}>Cancel</button>
                 </div>
             </form>
         </section>
