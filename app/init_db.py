@@ -19,10 +19,10 @@ def put_records_to_db():
                 description=f"This is a test service # {i + 1}",
                 address="Test Address",
                 method="POST",
-                headers=json.dumps({"Content-Type": "application/json"}),
+                headers=json.dumps([{"Content-Type": "application/json"}]),
                 response_code="200 OK",
                 response_format="JSON",
-                response_body=json.dumps({"message": f"Service {i + 1}"})
+                response_body=json.dumps({"message": f"Service {i + 1}"}),
             )
         )
 
