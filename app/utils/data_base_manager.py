@@ -4,7 +4,7 @@ from pathlib import Path
 import sqlite3
 
 
-env_path = Path('.') / '.env'
+env_path = Path(".") / ".env"
 load_dotenv(dotenv_path=env_path)
 
 

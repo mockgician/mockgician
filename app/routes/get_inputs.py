@@ -28,5 +28,7 @@ def get_http_methods(current_user: Annotated[User, Depends(get_current_active_us
 
 
 @router.get("/http_statuses/", response_model=list[HTTPStatus])
-async def get_http_status_codes(current_user: Annotated[User, Depends(get_current_active_user)]):
+async def get_http_status_codes(
+    current_user: Annotated[User, Depends(get_current_active_user)],
+):
     return list(HTTPStatus)
