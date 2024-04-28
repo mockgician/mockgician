@@ -44,7 +44,7 @@ class ResponseFormat(PyEnum):
 
 
 class Service(Base):
-    __tablename__ = 'services'
+    __tablename__ = "services"
 
     id = Column(Integer, primary_key=True)
     type = Column(Enum(*[m.value for m in ServiceType]))
@@ -59,10 +59,19 @@ class Service(Base):
 
 
 class ServiceBase(BaseModel):
-    class Config:
-        from_attributes = True
-
     id: Optional[int] = None
+    type: Optional[str] = None
+    name: Optional[str] = None
+    description: Optional[str] = None
+    address: Optional[str] = None
+    method: str
+    headers: Optional[str] = None
+    response_code: str
+    response_format: str
+    response_body: Optional[str] = None
+
+
+class ServiceCreate(BaseModel):
     type: Optional[str] = None
     name: Optional[str] = None
     description: Optional[str] = None

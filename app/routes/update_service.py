@@ -19,9 +19,9 @@ router = APIRouter()
 
 @router.patch("/services/", response_model=ServiceBase)
 async def update_existing_service(
-        service: ServiceBase,
-        db: SessionDep,
-        current_user: Annotated[User, Depends(get_current_active_user)]
+    service: ServiceBase,
+    db: SessionDep,
+    current_user: Annotated[User, Depends(get_current_active_user)],
 ):
     try:
         updated_service = update_service(db, service)
@@ -32,5 +32,5 @@ async def update_existing_service(
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"An error occurred while updating the service: {e}"
+            detail=f"An error occurred while updating the service: {e}",
         )
