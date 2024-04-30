@@ -146,7 +146,6 @@ function ServiceCreateForm({createNewCard, type}) {
                         && enteredValues.description 
                         && enteredValues.endpoint 
                         && dynamicInputsData.length > 0 
-                        && responseBody.trim().length > 0
                             ? "service-create__submit-button"
                             : "service-create__submit-button service-create__submit-button_inactive"
                     }
@@ -155,8 +154,7 @@ function ServiceCreateForm({createNewCard, type}) {
                         !enteredValues.name 
                         || !enteredValues.description 
                         || !enteredValues.endpoint 
-                        || dynamicInputsData.length === 0 
-                        || responseBody.trim().length === 0
+                        || dynamicInputsData.length === 0
                     }>
                         Save
                     </button>
