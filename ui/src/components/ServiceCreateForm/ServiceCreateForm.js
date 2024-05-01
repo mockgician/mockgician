@@ -139,14 +139,13 @@ function ServiceCreateForm({createNewCard, type}) {
                         <option value="text">TEXT</option>
                     </select>
                 </div>
-                <Editor language={selectedLang.toLowerCase()}  onContentChange={handleEditorContentChange}/>
+                <Editor language={selectedLang.toLowerCase()}  onContentChange={handleEditorContentChange} initialContent={responseBody}/>
                 <div className="service-create__buttons-container">
                     <button className={
                         enteredValues.name 
                         && enteredValues.description 
                         && enteredValues.endpoint 
                         && dynamicInputsData.length > 0 
-                        && responseBody.trim().length > 0
                             ? "service-create__submit-button"
                             : "service-create__submit-button service-create__submit-button_inactive"
                     }
@@ -155,8 +154,7 @@ function ServiceCreateForm({createNewCard, type}) {
                         !enteredValues.name 
                         || !enteredValues.description 
                         || !enteredValues.endpoint 
-                        || dynamicInputsData.length === 0 
-                        || responseBody.trim().length === 0
+                        || dynamicInputsData.length === 0
                     }>
                         Save
                     </button>

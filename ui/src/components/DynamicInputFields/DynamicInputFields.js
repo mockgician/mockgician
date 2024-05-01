@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function DynamicInputFields({onDynamicInputsChange}) {
-  const [inputs, setInputs] = useState([{ key: "", value: "" }]);
+export default function DynamicInputFields({onDynamicInputsChange, initialInputs}) {
+  const [inputs, setInputs] = useState(initialInputs || [{ key: "", value: "" }]);
+
+  useEffect(() => {
+    if (initialInputs) {
+      setInputs(initialInputs);
+    }
+  }, [initialInputs]);
 
   const handleAddInput = () => {
     setInputs([...inputs, { key: "", value: "" }]);
@@ -21,7 +27,6 @@ export default function DynamicInputFields({onDynamicInputsChange}) {
     setInputs(newArray);
     onDynamicInputsChange(newArray);
   };
-
 
   return (
     <div className="service-create__dynamic-inputs">

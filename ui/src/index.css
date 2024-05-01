@@ -11,5 +11,6 @@
 
 @import url(./components/Popup/Popup.css);
 @import url(./components/ServiceCreateForm/ServiceCreateForm.css);
+@import url(./components/ServiceUpdateForm/ServiceUpdateForm.css);
 @import url(./components/Editor/Editor.css);
 @import url(./components/Footer/Footer.css);

@@ -9,6 +9,7 @@ import Signin from '../SignIn/SignIn';
 import Main from '../Main/Main';
 import Popup from '../Popup/Popup';
 import ServiceCreateForm from '../ServiceCreateForm/ServiceCreateForm';
+import ServiceUpdateForm from '../ServiceUpdateForm/ServiceUpdateForm';
 import Footer from '../Footer/Footer';
 
 
@@ -28,7 +29,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState('');
 
-  //Login
+  // Login
   function signInUser({ username, password }) {
     authApi.signin(username, password)
       .then((data) => {
@@ -36,13 +37,14 @@ function App() {
         setCurrentUser({ username: username, password: password });
         setIsLoggedIn(true);
         localStorage.removeItem('currentPage');
+        localStorage.removeItem('cardsPerPage');
         setCurrentPage(1);
-        mainApi.getCards(1, cardsPerPage)
+        setCardsPerPage(10);
+        mainApi.getCards(1, 10)
         .then((data) => {
           setCards(data.services);
           setTotalAmountOfCards(data.total);
           setTotalPages(data.pages);
-          setCardsPerPage(cardsPerPage);
         });
         navigate('/services/', { replace: true });
       })
@@ -51,7 +53,7 @@ function App() {
       })
   }
 
-  //Stay loggen in after refreshing the page
+  // Stay loggen in after refreshing the page
   useEffect(() => {
     const access_token = localStorage.getItem('access_token');
     if (access_token) {
@@ -59,7 +61,7 @@ function App() {
     }
   }, []);
   
-  //Get Cards
+  // Get Cards
   useEffect(() => {
     const access_token = localStorage.getItem('access_token');
     if(isLoggedIn && access_token) {
@@ -112,7 +114,7 @@ function App() {
     localStorage.setItem('currentPage', pageNumber);
   };
 
-  //Stay on the same page after refreshing
+  // Stay on the same page after refreshing
   useEffect(() => {
     const storedPage = localStorage.getItem('currentPage');
     if (storedPage !== null) {
@@ -120,12 +122,21 @@ function App() {
     }
   }, []);
 
-  //Handle change of shown nubmer of cards
+  // Handle change of shown nubmer of cards
   const handleCardsPerPageChange = (chosenNumber) => {
     setCardsPerPage(chosenNumber);
+    localStorage.setItem('cardsPerPage', chosenNumber); 
   };
 
-  //Popup
+  // Stay with the same amount cards per page after refreshing
+  useEffect(() => {
+    const storedCardsPerPage = localStorage.getItem('cardsPerPage');
+    if (storedCardsPerPage) {
+      setCardsPerPage(parseInt(storedCardsPerPage, 10));
+    }
+  }, []);
+
+  // Popup
   const handleCreateClick = () => {
     setIsPopupOpen(true);
   }
@@ -144,7 +155,7 @@ function App() {
     setSelectedType(type);
   }
 
-  //Search
+  // Search
   const handleSearch = (query) => {
       setSearchQuery(query);
 
@@ -158,11 +169,6 @@ function App() {
         .catch((err) => {
           console.log(err);
         });
-  };
-  
-  const handleCurrentPageReset = () => {
-    setCurrentPage(1);
-    localStorage.setItem('currentPage', 1);
   };
 
   //Create card
@@ -178,6 +184,30 @@ function App() {
       });
   };
 
+  //Update card
+  const handleCardClick = (card) => {
+    localStorage.setItem('serviceData', JSON.stringify(card));
+  };
+
+  const updateCard = (updatedCardData) => {
+    mainApi
+      .updateCard(updatedCardData)
+      .then((updatedCard) => {
+        const updatedCardIndex = cards.findIndex((card) => card.id === updatedCard.id);
+        setCards((prevCards) => {
+          const newCards = [...prevCards];
+          newCards[updatedCardIndex] = updatedCard;
+          return newCards;
+        });
+        localStorage.removeItem('serviceData');
+        navigate('/services/', { replace: true });
+      })
+      .catch((error) => {
+        console.error('Error updating card:', error);
+      });
+  };
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -191,6 +221,7 @@ function App() {
               cards={cards}
               loggedIn={isLoggedIn}
               onCardDelete={handleCardDelete}
+              onCardClick={handleCardClick}
               onPageChange={handlePageChange}
               totalAmountOfCards={totalAmountOfCards}
               currentPage={currentPage}
@@ -199,10 +230,10 @@ function App() {
               cardsPerPage={cardsPerPage}
               onCardsPerPageCange={handleCardsPerPageChange}
               onSearch={handleSearch} 
-              onCurrentPageReset={handleCurrentPageReset}
             />}
           />
           <Route path="/create-service/" element={ <ServiceCreateForm createNewCard={createNewCard} type={selectedType}/>}/>
+          <Route path="/update-service/" element={ <ServiceUpdateForm updateCard={updateCard} />}/>
         </Routes>
         <Footer/>
         <Popup isOpen={isPopupOpen} onClose={closePopup} redirectToCreateService={redirectToCreateService} onTypeSelect={handleTypeSelect}/>

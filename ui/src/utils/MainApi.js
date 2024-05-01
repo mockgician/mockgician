@@ -45,6 +45,29 @@ class MainApi {
         }).then(res => this._checkJson(res));
     }
 
+    updateCard(data) {
+        const access_token = localStorage.getItem("access_token");
+        return fetch(`${this._baseUrl}/services/`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${access_token}`,
+            },
+            body: JSON.stringify({
+                id: data.id,
+                type: data.type,
+                name: data.name,
+                description: data.description,
+                address: data.address,
+                method: data.method,
+                headers: data.headers,
+                response_code: data.response_code,
+                response_format: data.response_format,
+                response_body: data.response_body
+            }),
+        }).then(res => this._checkJson(res));
+    }
+
     deleteCard(services_ids) {
         const access_token = localStorage.getItem("access_token");
         return fetch(`${this._baseUrl}/services/`, {
