@@ -28,6 +28,16 @@ const SignIn = ({ signInUser }) => {
                     required
                     onChange={handleChangeInput}
                     />
+                    {
+                        errors.login ? 
+                        (
+                        <span className="signin__error">
+                            {errors.login}
+                        </span>
+                        )
+                        :
+                        null
+                    }
                     
                     <label className="signin__input-label">Password</label>
                     <input 
@@ -42,13 +52,14 @@ const SignIn = ({ signInUser }) => {
                     required
                     onChange={handleChangeInput}
                     />
-
                     {
-                    errors.login || errors.password ? 
+                        errors.password ? 
                         (
-                        <span className="signin__error">"Invalid user name or password"</span>
-                        ) 
-                    : 
+                        <span className="signin__error">
+                            {errors.password}
+                        </span>
+                        )
+                        :
                         null
                     }
 

@@ -18,6 +18,10 @@
     padding: 8px 12px 4px;
 }
 
+.signin__input-label:last-of-type {
+    margin-top: 16px;
+}
+
 .signin__input {
     border: 0;
     padding: 0;
@@ -28,17 +32,14 @@
     outline: none;
 }
 
-.signin__input:first-of-type {
-    margin-bottom: 16px;
-}
-
 .signin__error {
     background: #FEEBEA;
     border-radius: 2px 0px 0px 2px;
     padding: 16px;
     border-left: 2px solid #F15045;
 
-    margin-top: 16px;
+    margin: 0;
+    margin-top: 10px;
 }
 
 .signin__error-hidden {
