@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useForm from '../../hooks/useForm';
 import mainApi from '../../utils/MainApi';
 import DynamicInputFields from '../DynamicInputFields/DynamicInputFields';
 import Editor from '../Editor/Editor';
@@ -18,10 +17,10 @@ function ServiceUpdateForm({updateCard}) {
     const [selectedStatus, setSelectedStatus] = useState('');
     const [optionsTypes, setOptionsTypes] = useState([]);
     const [selectedType, setSelectedType] = useState('');
-    // const { enteredValues } = useForm();
     const [selectedLang, setSelectedLang] = useState('');
     const [dynamicInputsData, setDynamicInputsData] = useState([]);
     const [responseBody, setResponseBody] = useState('');
+    const [isInputChange, setIsInputChange] = useState(false);
 
     // Retrieve service from local storage
     useEffect(() => {
@@ -73,6 +72,7 @@ function ServiceUpdateForm({updateCard}) {
 
     const handleDynamicInputsChange = (dynamicInputsData) => {
         setDynamicInputsData(dynamicInputsData);
+        setIsInputChange(true);
     };
 
     const handleEditorContentChange = (content) => {
@@ -102,6 +102,11 @@ function ServiceUpdateForm({updateCard}) {
         updateCard(updatedCardData);
     };
 
+    // Custom validation logic to ensure the Save button becomes active
+    const areAllDynamicFieldsFilled = dynamicInputsData.every(
+        (input) => input.key.trim() && input.value.trim()
+    );
+
     return (
         <section className="service-update">
             <form className="service-update__form" onSubmit={handleUpdate}>
@@ -124,7 +129,7 @@ function ServiceUpdateForm({updateCard}) {
                         name="name" 
                         id="name-input" 
                         required
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => { setName(e.target.value); setIsInputChange(true)}}
                     />
                     <label className="service-update__input-label">Description</label>
                     <input 
@@ -136,7 +141,7 @@ function ServiceUpdateForm({updateCard}) {
                         required
                         minLength={5}
                         maxLength={50}
-                        onChange={(e) => setDescription(e.target.value)}
+                        onChange={(e) => {setDescription(e.target.value); setIsInputChange(true)}}
                     />
                     <label className="service-update__input-label">Endpoint</label>
                     <input 
@@ -148,12 +153,12 @@ function ServiceUpdateForm({updateCard}) {
                         required
                         minLength={3}
                         maxLength={30}
-                        onChange={(e) => setEndpoint(e.target.value)}
+                        onChange={(e) => {setEndpoint(e.target.value); setIsInputChange(true)}}
                     />
                     
                     <div className="service-update__input-select">
                         <label className="service-update__input-label">HTTP-method</label>
-                        <select className="service-update__input service-update__input_arrow service-update__input_s" name="HTTP-method" onChange={(e) => setSelectedMethod(e.target.value)} value={selectedMethod}>
+                        <select className="service-update__input service-update__input_arrow service-update__input_s" name="HTTP-method" onChange={(e) => {setSelectedMethod(e.target.value); setIsInputChange(true)}} value={selectedMethod}>
                             {optionsMethods.map((option) => (
                                 <option key={option} value={option}>
                                     {option}
@@ -162,7 +167,7 @@ function ServiceUpdateForm({updateCard}) {
                         </select>
 
                         <label className="service-update__input-label">Response code</label>
-                        <select className="service-update__input service-update__input_arrow service-update__input_s" name="response-code" onChange={(e) => setSelectedStatus(e.target.value)} value={selectedStatus}>
+                        <select className="service-update__input service-update__input_arrow service-update__input_s" name="response-code" onChange={(e) => {setSelectedStatus(e.target.value); setIsInputChange(true)}} value={selectedStatus}>
                             {optionsStatuses.map((option) => (
                                 <option key={option} value={option}>
                                     {option}
@@ -184,26 +189,15 @@ function ServiceUpdateForm({updateCard}) {
                 </div>
                 <Editor language={selectedLang.toLowerCase()}  onContentChange={handleEditorContentChange} initialContent={responseBody}/>
                 <div className="service-update__buttons-container">
-                    <button /*className={
-                        enteredValues.name 
-                        && enteredValues.description 
-                        && enteredValues.endpoint 
-                        && dynamicInputsData.length > 0 
-                        && responseBody.trim().length > 0
+                    <button className={
+                        name && description && endpoint && areAllDynamicFieldsFilled && isInputChange
                             ? "service-update__submit-button"
                             : "service-update__submit-button service-update__submit-button_inactive"
-                    }*/
-                    className="service-update__submit-button"
+                    }
                     type="submit" 
-                    // disabled={
-                    //     !enteredValues.name 
-                    //     || !enteredValues.description 
-                    //     || !enteredValues.endpoint 
-                    //     || dynamicInputsData.length === 0 
-                    //     || responseBody.trim().length === 0
-                    // }
+                    disabled={!name || !description || !endpoint || !areAllDynamicFieldsFilled || !isInputChange}
                     >
-                        Update
+                        Update 
                     </button>
                     <button className="service-update__cancel-button" type="button" onClick={handleReturn}>Cancel</button>
                 </div>
