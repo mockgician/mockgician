@@ -34,12 +34,21 @@ const useForm = () => {
     [setEnteredInputValues, setErrors, setIsFormValid]
   );
 
+    // Method to manually set form validity
+    const setFormValidity = useCallback(
+      (isValid) => {
+        setIsFormValid(isValid);
+      },
+      []
+    );
+
   return {
     enteredValues,
     errors,
     handleChangeInput,
     isFormValid,
     resetForm,
+    setFormValidity,
   };
 };
 

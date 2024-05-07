@@ -13,7 +13,7 @@ function ServiceCreateForm({createNewCard, type}) {
     const [selectedMethod, setSelectedMethod] = useState('POST');
     const [optionsStatuses, setOptionsStatuses] = useState([]);
     const [selectedStatus, setSelectedStatus] = useState('200 OK');
-    const { enteredValues, handleChangeInput } = useForm();
+    const { enteredValues, handleChangeInput, isFormValid, setFormValidity } = useForm();
     const [selectedLang, setSelectedLang] = useState('json');
     const [dynamicInputsData, setDynamicInputsData] = useState([]);
     const [responseBody, setResponseBody] = useState(""); 
@@ -43,8 +43,21 @@ function ServiceCreateForm({createNewCard, type}) {
     };
 
     const handleDynamicInputsChange = (dynamicInputsData) => {
-        
         setDynamicInputsData(dynamicInputsData);
+        // Custom validation logic to ensure the Save button becomes active
+        const areAllDynamicFieldsFilled = dynamicInputsData.every(
+        (input) => input.key.trim() && input.value.trim()
+        );
+  
+        // Check if all required form inputs are filled and dynamic fields are valid
+        const isFormComplete =
+            enteredValues.name &&
+            enteredValues.description &&
+            enteredValues.endpoint &&
+            areAllDynamicFieldsFilled;
+    
+        // Update isFormValid based on new conditions
+        setFormValidity(isFormComplete);
     };
 
     const handleEditorContentChange = (content) => {
@@ -142,20 +155,13 @@ function ServiceCreateForm({createNewCard, type}) {
                 <Editor language={selectedLang.toLowerCase()}  onContentChange={handleEditorContentChange} initialContent={responseBody}/>
                 <div className="service-create__buttons-container">
                     <button className={
-                        enteredValues.name 
-                        && enteredValues.description 
-                        && enteredValues.endpoint 
-                        && dynamicInputsData.length > 0 
+                        isFormValid
                             ? "service-create__submit-button"
                             : "service-create__submit-button service-create__submit-button_inactive"
                     }
                     type="submit" 
-                    disabled={
-                        !enteredValues.name 
-                        || !enteredValues.description 
-                        || !enteredValues.endpoint 
-                        || dynamicInputsData.length === 0
-                    }>
+                    disabled={!isFormValid}
+                    >
                         Save
                     </button>
                     <button className="service-create__cancel-button" type="button" onClick={() => navigate('/services/', { replace: true })}>Cancel</button>
