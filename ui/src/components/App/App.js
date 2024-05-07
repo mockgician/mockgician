@@ -171,6 +171,11 @@ function App() {
         });
   };
 
+  const handleCurrentPageReset = () => {
+    setCurrentPage(1);
+    localStorage.setItem('currentPage', 1);
+  };
+
   //Create card
   const createNewCard = (newCardData) => {
     mainApi
@@ -230,6 +235,7 @@ function App() {
               cardsPerPage={cardsPerPage}
               onCardsPerPageCange={handleCardsPerPageChange}
               onSearch={handleSearch} 
+              onCurrentPageReset={handleCurrentPageReset}
             />}
           />
           <Route path="/create-service/" element={ <ServiceCreateForm createNewCard={createNewCard} type={selectedType}/>}/>
