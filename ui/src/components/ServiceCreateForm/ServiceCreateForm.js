@@ -13,7 +13,7 @@ function ServiceCreateForm({createNewCard, type}) {
     const [selectedMethod, setSelectedMethod] = useState('POST');
     const [optionsStatuses, setOptionsStatuses] = useState([]);
     const [selectedStatus, setSelectedStatus] = useState('200 OK');
-    const { enteredValues, handleChangeInput, isFormValid, setFormValidity } = useForm();
+    const { enteredValues, handleChangeInput, isFormValid, setFormValidity, errors } = useForm();
     const [selectedLang, setSelectedLang] = useState('json');
     const [dynamicInputsData, setDynamicInputsData] = useState([]);
     const [responseBody, setResponseBody] = useState(""); 
@@ -93,9 +93,17 @@ function ServiceCreateForm({createNewCard, type}) {
                         type="text" 
                         name="name" 
                         id="name-input" 
+                        minLength={2}
                         required
                         onChange={handleChangeInput}
                     />
+                    { errors.name ? 
+                        (
+                        <span className="service-create__error">{errors.name}</span>
+                        )
+                        :
+                        null
+                    }
                     <input 
                         className="service-create__input" 
                         placeholder="Description" 
@@ -108,6 +116,13 @@ function ServiceCreateForm({createNewCard, type}) {
                         maxLength={50}
                         onChange={handleChangeInput}
                     />
+                    { errors.description ? 
+                        (
+                        <span className="service-create__error">{errors.description}</span>
+                        )
+                        :
+                        null
+                    }
                     <input 
                         className="service-create__input" 
                         placeholder="Endpoint" 
@@ -116,10 +131,17 @@ function ServiceCreateForm({createNewCard, type}) {
                         name="endpoint" 
                         id="endpoint-input" 
                         required
-                        minLength={3}
+                        minLength={2}
                         maxLength={30}
                         onChange={handleChangeInput}
                     />
+                    { errors.endpoint ? 
+                        (
+                        <span className="service-create__error">{errors.endpoint}</span>
+                        )
+                        :
+                        null
+                    }
                     
                     <div className="service-create__input-select">
                         <label className="service-create__input-label">HTTP-method</label>

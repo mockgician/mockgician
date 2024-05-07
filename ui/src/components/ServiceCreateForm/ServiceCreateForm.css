@@ -56,6 +56,16 @@
     margin-bottom: 14px;
 }
 
+.service-create__error {
+    background: #FEEBEA;
+    border-radius: 2px 0px 0px 2px;
+    padding: 16px;
+    border-left: 2px solid #F15045;
+
+    margin: 0;
+    margin-bottom: 14px;
+}
+
 .service-create__response-field-container {
     display: flex;
     justify-content: space-between;

@@ -42,7 +42,6 @@ export default function DynamicInputFields({onDynamicInputsChange, initialInputs
                     name="key" 
                     id="key-input" 
                     required
-                    minLength={2}
                     maxLength={30}
                     onChange={(event) => handleChange(event, index)}
                 />
@@ -54,7 +53,6 @@ export default function DynamicInputFields({onDynamicInputsChange, initialInputs
                     name="value" 
                     id="value-input" 
                     required
-                    minLength={2}
                     maxLength={30}
                     onChange={(event) => handleChange(event, index)}
                 />
