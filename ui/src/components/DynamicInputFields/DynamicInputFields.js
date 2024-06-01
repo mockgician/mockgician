@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function DynamicInputFields({onDynamicInputsChange}) {
-  const [inputs, setInputs] = useState([{ key: "", value: "" }]);
+export default function DynamicInputFields({onDynamicInputsChange, initialInputs}) {
+  const [inputs, setInputs] = useState(initialInputs || [{ key: "", value: "" }]);
+
+  useEffect(() => {
+    if (initialInputs) {
+      setInputs(initialInputs);
+    }
+  }, [initialInputs]);
 
   const handleAddInput = () => {
     setInputs([...inputs, { key: "", value: "" }]);
@@ -22,7 +28,6 @@ export default function DynamicInputFields({onDynamicInputsChange}) {
     onDynamicInputsChange(newArray);
   };
 
-
   return (
     <div className="service-create__dynamic-inputs">
       {inputs.map((item, index) => (
@@ -37,8 +42,7 @@ export default function DynamicInputFields({onDynamicInputsChange}) {
                     name="key" 
                     id="key-input" 
                     required
-                    minLength={2}
-                    maxLength={10}
+                    maxLength={30}
                     onChange={(event) => handleChange(event, index)}
                 />
                 <input 
@@ -49,8 +53,7 @@ export default function DynamicInputFields({onDynamicInputsChange}) {
                     name="value" 
                     id="value-input" 
                     required
-                    minLength={2}
-                    maxLength={10}
+                    maxLength={30}
                     onChange={(event) => handleChange(event, index)}
                 />
             </div>

@@ -13,7 +13,7 @@ function ServiceCreateForm({createNewCard, type}) {
     const [selectedMethod, setSelectedMethod] = useState('POST');
     const [optionsStatuses, setOptionsStatuses] = useState([]);
     const [selectedStatus, setSelectedStatus] = useState('200 OK');
-    const { enteredValues, handleChangeInput } = useForm();
+    const { enteredValues, handleChangeInput, isFormValid, setFormValidity, errors } = useForm();
     const [selectedLang, setSelectedLang] = useState('json');
     const [dynamicInputsData, setDynamicInputsData] = useState([]);
     const [responseBody, setResponseBody] = useState(""); 
@@ -43,8 +43,21 @@ function ServiceCreateForm({createNewCard, type}) {
     };
 
     const handleDynamicInputsChange = (dynamicInputsData) => {
-        
         setDynamicInputsData(dynamicInputsData);
+        // Custom validation logic to ensure the Save button becomes active
+        const areAllDynamicFieldsFilled = dynamicInputsData.every(
+        (input) => input.key.trim() && input.value.trim()
+        );
+  
+        // Check if all required form inputs are filled and dynamic fields are valid
+        const isFormComplete =
+            enteredValues.name &&
+            enteredValues.description &&
+            enteredValues.endpoint &&
+            areAllDynamicFieldsFilled;
+    
+        // Update isFormValid based on new conditions
+        setFormValidity(isFormComplete);
     };
 
     const handleEditorContentChange = (content) => {
@@ -80,9 +93,17 @@ function ServiceCreateForm({createNewCard, type}) {
                         type="text" 
                         name="name" 
                         id="name-input" 
+                        minLength={2}
                         required
                         onChange={handleChangeInput}
                     />
+                    { errors.name ? 
+                        (
+                        <span className="service-create__error">{errors.name}</span>
+                        )
+                        :
+                        null
+                    }
                     <input 
                         className="service-create__input" 
                         placeholder="Description" 
@@ -95,6 +116,13 @@ function ServiceCreateForm({createNewCard, type}) {
                         maxLength={50}
                         onChange={handleChangeInput}
                     />
+                    { errors.description ? 
+                        (
+                        <span className="service-create__error">{errors.description}</span>
+                        )
+                        :
+                        null
+                    }
                     <input 
                         className="service-create__input" 
                         placeholder="Endpoint" 
@@ -103,10 +131,17 @@ function ServiceCreateForm({createNewCard, type}) {
                         name="endpoint" 
                         id="endpoint-input" 
                         required
-                        minLength={3}
+                        minLength={2}
                         maxLength={30}
                         onChange={handleChangeInput}
                     />
+                    { errors.endpoint ? 
+                        (
+                        <span className="service-create__error">{errors.endpoint}</span>
+                        )
+                        :
+                        null
+                    }
                     
                     <div className="service-create__input-select">
                         <label className="service-create__input-label">HTTP-method</label>
@@ -139,25 +174,16 @@ function ServiceCreateForm({createNewCard, type}) {
                         <option value="text">TEXT</option>
                     </select>
                 </div>
-                <Editor language={selectedLang.toLowerCase()}  onContentChange={handleEditorContentChange}/>
+                <Editor language={selectedLang.toLowerCase()}  onContentChange={handleEditorContentChange} initialContent={responseBody}/>
                 <div className="service-create__buttons-container">
                     <button className={
-                        enteredValues.name 
-                        && enteredValues.description 
-                        && enteredValues.endpoint 
-                        && dynamicInputsData.length > 0 
-                        && responseBody.trim().length > 0
+                        isFormValid
                             ? "service-create__submit-button"
                             : "service-create__submit-button service-create__submit-button_inactive"
                     }
                     type="submit" 
-                    disabled={
-                        !enteredValues.name 
-                        || !enteredValues.description 
-                        || !enteredValues.endpoint 
-                        || dynamicInputsData.length === 0 
-                        || responseBody.trim().length === 0
-                    }>
+                    disabled={!isFormValid}
+                    >
                         Save
                     </button>
                     <button className="service-create__cancel-button" type="button" onClick={() => navigate('/services/', { replace: true })}>Cancel</button>

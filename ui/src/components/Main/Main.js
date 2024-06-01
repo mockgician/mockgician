@@ -2,7 +2,7 @@ import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import ServicesList from '../ServicesList/ServicesList';
 
-function Main({cards, onCardDelete, onPageChange, totalAmountOfCards, currentPage, totalPages, onCreateClick, cardsPerPage, onCardsPerPageCange, onSearch, onCurrentPageReset}) {
+function Main({cards, onCardDelete, onCardClick, onPageChange, totalAmountOfCards, currentPage, totalPages, onCreateClick, cardsPerPage, onCardsPerPageCange, onSearch, onCurrentPageReset}) {
     
 
     return (
@@ -11,6 +11,7 @@ function Main({cards, onCardDelete, onPageChange, totalAmountOfCards, currentPag
             <ServicesList 
                 cards={cards} 
                 onCardDelete={onCardDelete} 
+                onCardClick={onCardClick}
                 onPageChange={onPageChange}
                 totalAmountOfCards={totalAmountOfCards}
                 currentPage={currentPage}
