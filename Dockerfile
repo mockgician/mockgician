@@ -1,4 +1,14 @@
-# Using the official Python image
+# Stage 1: Build React application
+FROM node:16 as build
+
+WORKDIR /app/ui
+
+COPY ui/package.json ui/package-lock.json ./
+RUN npm install
+COPY ui/ ./
+RUN npm run build
+
+# Stage 2: Run Python/FastApi application
 FROM python:3.12
 
 # Installing dependencies
@@ -9,11 +19,10 @@ COPY pyproject.toml poetry.lock* ./
 RUN poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi
 
-# Copying the application code into the container
-COPY . /app
-
-# Specify the working directory
+# Copy Python app and built React app
 WORKDIR /app
+COPY --from=build /app/ui/build ./ui/build
+COPY app ./app
 
 # Copying .env file code into the container
 COPY .env .env

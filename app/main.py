@@ -14,6 +14,7 @@ from app.routes import (
     get_inputs,
     create_service,
     update_service,
+    static,
 )
 
 Base.metadata.create_all(bind=engine)
@@ -23,14 +24,25 @@ put_records_to_db()
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000",
+    "http://localhost:8000",
+    "http://localhost:8080",
+    "http://0.0.0.0:3000",
+    "http://0.0.0.0:8000",
+    "http://0.0.0.0:8080",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# Route for getting static data
+app.include_router(static.router)
 # Route for generating user token
 app.include_router(token.router)
 # Route for retrieving input data
