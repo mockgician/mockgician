@@ -36,3 +36,6 @@ Recommended to run it inside a Poetry environment.
 2. To run the docker image, run the command (in the project root):
     ```bash
    docker run -d -p 8000:8000 mockgician
+
+3. To open app on web:
+   Type localhost:8000/token/ in your browser URL line

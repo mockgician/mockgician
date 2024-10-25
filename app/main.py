@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 
 from app.db.engine import engine
 from app.models.service import Base
@@ -41,8 +43,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Route for getting static data
-app.include_router(static.router)
+# Serve static files from the React build directory
+app.mount("/static", StaticFiles(directory="ui/build/static"), name="static")
+
+# # Route for getting static data
+# app.include_router(static.router)
+
+# Serve the login page (React app)
+@app.get("/token/", response_class=HTMLResponse)
+async def serve_login_page():
+    with open("ui/build/index.html") as f:
+        return HTMLResponse(content=f.read())
 # Route for generating user token
 app.include_router(token.router)
 # Route for retrieving input data
